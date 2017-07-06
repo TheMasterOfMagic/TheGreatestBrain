@@ -23,12 +23,17 @@ void OnTimer(TIMER_ID timerID) {
 		OnRedTimer();
 		if (dead) {
 			KillAllTimer();
-			MessageBox(hwnd,"你的红色小球注定是要掉下去了！","游戏结束",NULL);
+			MessageBox(hwnd, "你的红色小球怕是要掉下去了！", "游戏结束", NULL);
 			ExitProcess(0);
 		}
 		break;
 	case BLUE_TIMER_ID:
 		OnBlueTimer();
+		if (dead) {
+			KillAllTimer();
+			MessageBox(hwnd, "你的蓝色小三角怕是撞上了！", "游戏结束", NULL);
+			ExitProcess(0);
+		}
 		break;
 	case GREEN_TIMER_ID:
 		OnGreenTimer();
@@ -96,7 +101,7 @@ void GamePaint(void) {
 	SelectObject(hdcMem, hbmMem);
 
 	//四个部分分别绘制
-	RedGamePaint(hdcMem);
+	RedGamePaint();
 	BlueGamePaint();
 	YellowGamePaint();
 	GreenGamePaint();
