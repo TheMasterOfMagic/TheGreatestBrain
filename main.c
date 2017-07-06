@@ -6,11 +6,11 @@
 LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg) {
 	case WM_CREATE:
-		CreateGame(hwnd);
+		CreateGame();
 		break;
 	case WM_TIMER:
-		GamePaint(hwnd);
-		OnTimer(hwnd, wParam);
+		GamePaint();
+		OnTimer(wParam);
 		break;
 	case WM_KEYDOWN:
 		OnKeyDown(wParam);
@@ -19,7 +19,7 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
 		OnKeyUp(wParam);
 		break;
 	case WM_PAINT:
-		GamePaint(hwnd);
+		GamePaint();
 		break;
 	case WM_DESTROY:
 		ExitProcess(0);
@@ -37,7 +37,7 @@ int WINAPI WinMain(
 	int nCmdShow)   // 用于指明窗口是否需要显示的参数。
 {
 	WNDCLASS wc;
-	HWND hwnd;
+	//HWND hwnd;
 	MSG msg;
 	int fGotMessage;
 
