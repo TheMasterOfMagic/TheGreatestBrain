@@ -6,9 +6,10 @@
 #include "greenPart.h"
 
 void CreateGame() {
-	
+
+	hdc = GetDC(hwnd);
 	Resize();
-	
+	dead = FALSE;
 
 	CreateRedGame();
 	CreateBlueGame();
@@ -20,6 +21,11 @@ void OnTimer(TIMER_ID timerID) {
 	switch (timerID) {
 	case RED_TIMER_ID:
 		OnRedTimer();
+		if (dead) {
+			KillAllTimer();
+			MessageBox(hwnd,"你的红色小球注定是要掉下去了！","游戏结束",NULL);
+			ExitProcess(0);
+		}
 		break;
 	case BLUE_TIMER_ID:
 		OnBlueTimer();
@@ -85,7 +91,6 @@ void OnKeyUp(DWORD vk) {
 }
 void GamePaint(void) {
 	HBITMAP hbmMem;
-	hdc = GetDC(hwnd);
 	hdcMem = CreateCompatibleDC(hdc);
 	hbmMem = CreateCompatibleBitmap(hdc, rect.right - rect.left, rect.bottom - rect.top);
 	SelectObject(hdcMem, hbmMem);
@@ -101,6 +106,7 @@ void GamePaint(void) {
 
 	//回收资源
 	DeleteObject(hbmMem);
+	DeleteObject(hdcMem);
 }
 void Resize(void) {
 	short left, top, right, bottom, midX, midY;
@@ -133,6 +139,14 @@ void Resize(void) {
 	greenRect.right = right;
 	greenRect.bottom = bottom;
 }
+void KillAllTimer(void) {
+	KillTimer(hwnd, RED_TIMER_ID);
+	KillTimer(hwnd, BLUE_TIMER_ID);
+	KillTimer(hwnd, GREEN_TIMER_ID);
+	KillTimer(hwnd, YELLOW_TIMER_ID);
+	KillTimer(hwnd, PAINTER_TIMER_ID);
+}
+
 HPEN blackPen(int cWidth) {
 	return CreatePen(PS_SOLID, cWidth, RGB(0, 0, 0));
 }
