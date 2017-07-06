@@ -95,15 +95,15 @@ void RedGamePaint(void) {
 	Rectangle(hdcMem, redRect.left, redRect.top, redRect.right, redRect.bottom);
 	//绘制平台
 	SelectObject(hdcMem, platformPen);
-	poly[0].x = center.x + platformLength / 2 * c;
-	poly[0].y = center.y - platformLength / 2 * s;
-	poly[1].x = center.x - platformLength / 2 * c;
-	poly[1].y = center.y + platformLength / 2 * s;
+	poly[0].x = redRect.left + center.x + platformLength / 2 * c;
+	poly[0].y = redRect.top + center.y - platformLength / 2 * s;
+	poly[1].x = redRect.left + center.x - platformLength / 2 * c;
+	poly[1].y = redRect.top + center.y + platformLength / 2 * s;
 	Polyline(hdcMem, poly, 2);
 	//绘制小球
 	SelectObject(hdcMem, ballPen);
 	SelectObject(hdcMem, ballBrush);
-	Ellipse(hdcMem, ballX - ballRadius, ballY - ballRadius, ballX + ballRadius, ballY + ballRadius);
+	Ellipse(hdcMem, redRect.left+ballX - ballRadius, redRect.top+ballY - ballRadius, redRect.left + ballX + ballRadius, redRect.top + ballY + ballRadius);
 	//回收资源
 	DeleteObject(backGroundBrush);
 	DeleteObject(platformPen);
