@@ -83,11 +83,11 @@ void RedGamePaint(void) {
 	UINT ballX, ballY;
 	c = cos(theta);
 	s = sin(theta);
-	ballX = ballOffSet * c + center.x - ballRadius*4/3*s;
-	ballY = -ballOffSet * s + center.y - ballRadius*4/3*c;
+	ballX = ballOffSet * c + center.x - ballRadius*s;
+	ballY = -ballOffSet * s + center.y - ballRadius*c;
 	//创造所需画笔画刷
 	backGroundBrush = CreateSolidBrush(BACKGROUNDCOLOR);
-	platformPen = blackPen(ballRadius);
+	platformPen = blackPen(ballRadius/2);
 	ballPen = transparentPen();
 	ballBrush = CreateSolidBrush(BALLCOLOR);
 	//绘制背景
