@@ -5,12 +5,16 @@
 #include "yellowPart.h"
 #include "greenPart.h"
 
-void CreateGame(void) {
+void CreateGame() {
+	
 	Resize();
+	
+
 	CreateRedGame();
 	CreateBlueGame();
 	CreateYellowGame();
 	CreateGreenGame();
+	SetTimer(hwnd, PAINTER_TIMER_ID, 20, NULL);
 }
 void OnTimer(TIMER_ID timerID) {
 	switch (timerID) {
@@ -25,6 +29,9 @@ void OnTimer(TIMER_ID timerID) {
 		break;
 	case YELLOW_TIMER_ID:
 		OnYellowTimer();
+		break;
+	case PAINTER_TIMER_ID:
+		GamePaint();
 		break;
 	default:
 		break;
@@ -77,10 +84,23 @@ void OnKeyUp(DWORD vk) {
 	}
 }
 void GamePaint(void) {
-	RedGamePaint();
+	HBITMAP hbmMem;
+	hdc = GetDC(hwnd);
+	hdcMem = CreateCompatibleDC(hdc);
+	hbmMem = CreateCompatibleBitmap(hdc, rect.right - rect.left, rect.bottom - rect.top);
+	SelectObject(hdcMem, hbmMem);
+
+	//四个部分分别绘制
+	RedGamePaint(hdcMem);
 	BlueGamePaint();
 	YellowGamePaint();
 	GreenGamePaint();
+
+	//输出
+	BitBlt(hdc,0, 0, rect.right - rect.left, rect.bottom - rect.top,hdcMem, 0, 0, SRCCOPY);
+
+	//回收资源
+	DeleteObject(hbmMem);
 }
 void Resize(void) {
 	short left, top, right, bottom, midX, midY;
@@ -112,4 +132,10 @@ void Resize(void) {
 	greenRect.top = midY;
 	greenRect.right = right;
 	greenRect.bottom = bottom;
+}
+HPEN blackPen(int cWidth) {
+	return CreatePen(PS_SOLID, cWidth, RGB(0, 0, 0));
+}
+HPEN transparentPen(void) {
+	return CreatePen(PS_NULL, 0, RGB(0, 0, 0));
 }

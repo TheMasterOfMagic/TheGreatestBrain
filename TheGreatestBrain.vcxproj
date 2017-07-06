@@ -111,13 +111,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bluePart.c" />
     <ClCompile Include="game.c" />
+    <ClCompile Include="greenPart.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="redPart.c" />
+    <ClCompile Include="yellowPart.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bluePart.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="greenPart.h" />
     <ClInclude Include="redPart.h" />
+    <ClInclude Include="yellowPart.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

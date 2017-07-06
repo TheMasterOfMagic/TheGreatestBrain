@@ -3,9 +3,10 @@
 
 #define TITLE "TheGreatestBrain"
 
-LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+LRESULT CALLBACK MainWndProc(HWND _hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg) {
 	case WM_CREATE:
+		hwnd = _hwnd;
 		CreateGame();
 		break;
 	case WM_TIMER:
@@ -27,7 +28,7 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
 	default:
 		break;
 	}
-	return DefWindowProc(hwnd, msg, wParam, lParam);
+	return DefWindowProc(_hwnd, msg, wParam, lParam);
 }
 
 int WINAPI WinMain(
