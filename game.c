@@ -15,7 +15,7 @@ void CreateGame() {
 	CreateBlueGame();
 	CreateYellowGame();
 	CreateGreenGame();
-	SetTimer(hwnd, PAINTER_TIMER_ID, 20, NULL);
+	SetTimer(hwnd, PAINTER_TIMER_ID, 10, NULL);//用来保持帧率的Painter Timer
 }
 void OnTimer(TIMER_ID timerID) {
 	switch (timerID) {
