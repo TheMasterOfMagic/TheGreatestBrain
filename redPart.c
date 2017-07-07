@@ -28,7 +28,7 @@ void CreateRedGame(void) {
 	deltaV = 0.0015;
 	influenceFromBallToV = -0.000005;
 	influenceFromThetaToBall = -2;
-	//SetTimer(hwnd, RED_TIMER_ID, 20, NULL);
+	SetTimer(hwnd, RED_TIMER_ID, 20, NULL);
 }
 void OnRedTimer(void) {
 	if (pause) {

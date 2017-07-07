@@ -39,7 +39,7 @@ void CreateYellowGame(void) {
 	diamondY = height / 2;//取区域中间的高度
 	diamondWidth = width / 20;//取区域宽度的二十分之一
 	broken = FALSE;
-	//SetTimer(hwnd, YELLOW_TIMER_ID, 20, NULL);
+	SetTimer(hwnd, YELLOW_TIMER_ID, 20, NULL);
 }
 void OnYellowTimer(void) {
 	int i;

@@ -41,7 +41,7 @@ void CreateGreenGame(void) {
 		enemyDirection[i].y = rand() & 1 ? 1 : -1;
 	}
 
-	//SetTimer(hwnd, GREEN_TIMER_ID, 20, NULL);
+	SetTimer(hwnd, GREEN_TIMER_ID, 20, NULL);
 }
 void OnGreenTimer(void) {
 	int i;
