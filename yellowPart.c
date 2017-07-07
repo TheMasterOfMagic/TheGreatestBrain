@@ -5,14 +5,14 @@
 #define DIAMONDCOLOR (broken ?  RGB(150,150,150) : RGB(255,255-temperature,0))
 #define BACKGROUNDCOLOR RGB(255,255,180)
 
-#define N 4//同一时间障碍个数
+#define YELLOWN 4//同一时间障碍个数
 
 int temperature;
 int barrierDistance;//障碍物之间的间隔距离
 int barrierX;//最左侧障碍的横坐标
 int barrierLength;//障碍的长度
-int barrierY[N];//每个障碍上端点的纵坐标
-UINT barrierDirection[N];//每个障碍的纵方向速度
+int barrierY[YELLOWN];//每个障碍上端点的纵坐标
+UINT barrierDirection[YELLOWN];//每个障碍的纵方向速度
 UINT speed;//速度
 BOOL spacePress;
 int diamondX;//小菱形最右端的横坐标
@@ -26,10 +26,10 @@ void CreateYellowGame(void) {
 	int i;
 
 	temperature = 0;
-	barrierDistance = width / N;//取距离区域左边缘N分之一宽度的位置
+	barrierDistance = width / YELLOWN;//取距离区域左边缘N分之一宽度的位置
 	barrierX = barrierDistance;
 	barrierLength = height / 4;//取区域高度的四分之一
-	for (i = 0; i < N; ++i) {
+	for (i = 0; i < YELLOWN; ++i) {
 		barrierY[i] = rand() % (height - barrierLength);
 		barrierDirection[i] = rand() & 1 ? 1 : -1;
 	}
@@ -52,14 +52,14 @@ void OnYellowTimer(void) {
 	barrierX -= speed;
 	if (barrierX <= 0) {
 		barrierX = barrierDistance;
-		for (i = 0; i < N - 1; ++i) {
+		for (i = 0; i < YELLOWN - 1; ++i) {
 			barrierY[i] = barrierY[i + 1];
 			barrierDirection[i] = barrierDirection[i + 1];
 		}
-		barrierY[N - 1] = rand() % (height - barrierLength);
-		barrierDirection[N - 1] = rand() & 1 ? 1 : -1;
+		barrierY[YELLOWN - 1] = rand() % (height - barrierLength);
+		barrierDirection[YELLOWN - 1] = rand() & 1 ? 1 : -1;
 	}
-	for (i = 0; i < N; ++i) {
+	for (i = 0; i < YELLOWN; ++i) {
 		barrierY[i] += barrierDirection[i] * speed;
 		if (barrierY[i] <= 0 || barrierY[i]>=height-barrierLength) {
 			barrierDirection[i] *= -1;
@@ -77,7 +77,7 @@ void OnYellowTimer(void) {
 			temperature -= 1;
 		}
 		//判定是否死亡
-		for (i = 0; i < N; ++i) {
+		for (i = 0; i < YELLOWN; ++i) {
 			if (barrierX+i*barrierDistance + diamondWidth >= diamondX && diamondX >= barrierX+i*barrierDistance) {
 				if (MANHATTANDISTANCE(diamondX - diamondWidth / 2, diamondY, barrierX + i*barrierDistance, barrierY[i] + barrierLength / 2) <= diamondWidth / 2 + barrierLength / 2) {
 					dead = TRUE;
@@ -119,7 +119,7 @@ void YellowGamePaint(void) {
 	Rectangle(hdcMem, yellowRect.left, yellowRect.top, yellowRect.right, yellowRect.bottom);
 	//绘制障碍
 	SelectObject(hdcMem, barrierPen);
-	for (i = 0; i < N; ++i) {
+	for (i = 0; i < YELLOWN; ++i) {
 		poly[0].x = poly[1].x = yellowRect.left+barrierX + i*barrierDistance;
 		poly[0].y = yellowRect.top+barrierY[i];
 		poly[1].y = yellowRect.top+barrierY[i] + barrierLength;

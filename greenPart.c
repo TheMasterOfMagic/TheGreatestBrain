@@ -6,15 +6,15 @@
 #define BACKGROUNDCOLOR RGB(145,234,171)
 #define ENEMYBRUSH RGB(0,0,0)
 
-#define N 3
+#define GREENN 3
 
 POINT rectanglePosition;//小正方形的位置
 UINT rectangleSize;//小正方形边长
 UINT rectangleSpeed;//小正方形移动速度
 UINT enemySize;//敌人的大小
 float enemySpeed;//敌人的移动速度
-POINT enemyPosition[N];//每个敌人的位置
-POINT enemyDirection[N];//每个敌人的方向
+POINT enemyPosition[GREENN];//每个敌人的位置
+POINT enemyDirection[GREENN];//每个敌人的方向
 
 //按键是否被按下
 BOOL wPress;
@@ -32,7 +32,7 @@ void CreateGreenGame(void) {
 	rectangleSpeed = rectangleSize/4;
 	enemySize = rectangleSize;
 	enemySpeed = rectangleSpeed/5 ;
-	for (i = 0; i < N; ++i) {
+	for (i = 0; i < GREENN; ++i) {
 		do {
 			enemyPosition[i].x = rand() % width;
 			enemyPosition[i].y = rand() % height;
@@ -51,7 +51,7 @@ void OnGreenTimer(void) {
 		return;
 	}
 	//判定是否相撞
-	for (i = 0; i < N; ++i) {
+	for (i = 0; i < GREENN; ++i) {
 		if (abs(enemyPosition[i].x - rectanglePosition.x) < (enemySize + rectangleSize) / 2-2 &&
 			abs(enemyPosition[i].y - rectanglePosition.y) < (enemySize + rectangleSize) / 2-2) {
 			dead = TRUE;
@@ -73,7 +73,7 @@ void OnGreenTimer(void) {
 	}
 
 	//移动敌人
-	for (i = 0; i < N; ++i) {
+	for (i = 0; i < GREENN; ++i) {
 		enemyPosition[i].x += enemyDirection[i].x*enemySpeed;
 		if (enemyPosition[i].x >= width - enemySize / 2) {
 			enemyDirection[i].x = -1;
@@ -139,7 +139,7 @@ void GreenGamePaint(void) {
 	Rectangle(hdcMem, greenRect.left, greenRect.top, greenRect.right, greenRect.bottom);
 	//绘制敌人
 	SelectObject(hdcMem, enemyBrush);
-	for (i = 0; i < N; ++i) {
+	for (i = 0; i < GREENN; ++i) {
 		Rectangle(
 			hdcMem,
 			greenRect.left + enemyPosition[i].x - enemySize / 2,
