@@ -3,6 +3,7 @@
 
 #define abs(x) ((x)>0?(x):-(x))
 #define pi 3.1415926535
+#define MANHATTANDISTANCE(x1,y1,x2,y2) (abs((x1)-(x2))+abs((y1)-(y2)))
 
 typedef enum _TIMER_ID {
 	RED_TIMER_ID = 79861, 

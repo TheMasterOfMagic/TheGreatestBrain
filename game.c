@@ -45,6 +45,11 @@ void OnTimer(TIMER_ID timerID) {
 		break;
 	case YELLOW_TIMER_ID:
 		OnYellowTimer();
+		if (dead) {
+			KillAllTimer();
+			MessageBox(hwnd,"你的黄色小菱形好像出事了！","游戏结束",NULL);
+			ExitProcess(0);
+		}
 		break;
 	case PAINTER_TIMER_ID:
 		GamePaint();
