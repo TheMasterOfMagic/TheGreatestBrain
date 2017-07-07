@@ -41,12 +41,15 @@ void CreateGreenGame(void) {
 		enemyDirection[i].y = rand() & 1 ? 1 : -1;
 	}
 
-	SetTimer(hwnd, GREEN_TIMER_ID, 20, NULL);
+	//SetTimer(hwnd, GREEN_TIMER_ID, 20, NULL);
 }
 void OnGreenTimer(void) {
 	int i;
 	const int width = greenRect.right - greenRect.left, height = greenRect.bottom - greenRect.top;
 
+	if (pause) {
+		return;
+	}
 	//ÅÐ¶¨ÊÇ·ñÏà×²
 	for (i = 0; i < N; ++i) {
 		if (abs(enemyPosition[i].x - rectanglePosition.x) < (enemySize + rectangleSize) / 2-2 &&

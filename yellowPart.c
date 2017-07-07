@@ -8,7 +8,7 @@
 #define N 4//同一时间障碍个数
 
 int temperature;
-UINT barrierDistance;//障碍物之间的间隔距离
+int barrierDistance;//障碍物之间的间隔距离
 int barrierX;//最左侧障碍的横坐标
 int barrierLength;//障碍的长度
 int barrierY[N];//每个障碍上端点的纵坐标
@@ -39,12 +39,15 @@ void CreateYellowGame(void) {
 	diamondY = height / 2;//取区域中间的高度
 	diamondWidth = width / 20;//取区域宽度的二十分之一
 	broken = FALSE;
-	SetTimer(hwnd, YELLOW_TIMER_ID, 20, NULL);
+	//SetTimer(hwnd, YELLOW_TIMER_ID, 20, NULL);
 }
 void OnYellowTimer(void) {
 	int i;
 	const int height = yellowRect.bottom - yellowRect.top;
 
+	if (pause) {
+		return;
+	}
 	//障碍物移动
 	barrierX -= speed;
 	if (barrierX <= 0) {
@@ -73,11 +76,13 @@ void OnYellowTimer(void) {
 		if (!broken && temperature > 0) {
 			temperature -= 1;
 		}
-
-		if (barrierX + diamondWidth >= diamondX && diamondX >= barrierX) {
-			if (MANHATTANDISTANCE(diamondX - diamondWidth / 2, diamondY, barrierX, barrierY[0] + barrierLength / 2) <= diamondWidth / 2 + barrierLength / 2) {
-				dead = TRUE;
-				return;
+		//判定是否死亡
+		for (i = 0; i < N; ++i) {
+			if (barrierX+i*barrierDistance + diamondWidth >= diamondX && diamondX >= barrierX+i*barrierDistance) {
+				if (MANHATTANDISTANCE(diamondX - diamondWidth / 2, diamondY, barrierX + i*barrierDistance, barrierY[i] + barrierLength / 2) <= diamondWidth / 2 + barrierLength / 2) {
+					dead = TRUE;
+					return;
+				}
 			}
 		}
 	}

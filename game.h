@@ -18,7 +18,7 @@ typedef enum _TIMER_ID {
 HWND hwnd;
 HDC hdc, hdcMem;
 RECT rect, redRect, blueRect, yellowRect, greenRect;
-BOOL dead;
+BOOL dead, pause;
 
 void CreateGame(void);
 void OnTimer(TIMER_ID);

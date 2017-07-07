@@ -10,7 +10,7 @@ void CreateGame() {
 	hdc = GetDC(hwnd);
 	Resize();
 	dead = FALSE;
-
+	pause = FALSE;
 	CreateRedGame();
 	CreateBlueGame();
 	CreateYellowGame();
@@ -60,6 +60,9 @@ void OnTimer(TIMER_ID timerID) {
 }
 void OnKeyDown(DWORD vk) {
 	switch (vk) {
+	case 'P':
+		pause = !pause;
+		break;
 	case VK_LEFT:
 	case VK_RIGHT:
 		OnRedKeyDown(vk);
