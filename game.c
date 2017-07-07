@@ -37,6 +37,11 @@ void OnTimer(TIMER_ID timerID) {
 		break;
 	case GREEN_TIMER_ID:
 		OnGreenTimer();
+		if (dead) {
+			KillAllTimer();
+			MessageBox(hwnd, "你的绿色小正方形怕是撞上了！", "游戏结束", NULL);
+			ExitProcess(0);
+		}
 		break;
 	case YELLOW_TIMER_ID:
 		OnYellowTimer();
@@ -96,14 +101,20 @@ void OnKeyUp(DWORD vk) {
 }
 void GamePaint(void) {
 	HBITMAP hbmMem;
+	HPEN pen;
 	hdcMem = CreateCompatibleDC(hdc);
 	hbmMem = CreateCompatibleBitmap(hdc, rect.right - rect.left, rect.bottom - rect.top);
+	pen = transparentPen();
 	SelectObject(hdcMem, hbmMem);
 
 	//四个部分分别绘制
+	SelectObject(hdcMem, pen);
 	RedGamePaint();
+	SelectObject(hdcMem, pen);
 	BlueGamePaint();
+	SelectObject(hdcMem, pen);
 	YellowGamePaint();
+	SelectObject(hdcMem, pen);
 	GreenGamePaint();
 
 	//输出
