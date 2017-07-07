@@ -25,6 +25,10 @@ void OnTimer(TIMER_ID);
 void OnKeyDown(DWORD);
 void OnKeyUp(DWORD);
 void GamePaint(void);
+void ResizeRedPart(void);
+void ResizeBluePart(void);
+void ResizeYellowPart(void);
+void ResizeGreenPart(void);
 void Resize(void);
 void KillAllTimer(void);
 

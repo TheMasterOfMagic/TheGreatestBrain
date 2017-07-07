@@ -5,12 +5,15 @@
 #include "yellowPart.h"
 #include "greenPart.h"
 
+short left, top, right, bottom, midX, midY;
+float zoomRate;
 void CreateGame() {
 
 	hdc = GetDC(hwnd);
-	Resize();
 	dead = FALSE;
-	pause = FALSE;
+	pause = TRUE;
+	zoomRate = 0.5;
+	Resize();
 	CreateRedGame();
 	CreateBlueGame();
 	CreateYellowGame();
@@ -132,36 +135,54 @@ void GamePaint(void) {
 	DeleteObject(hbmMem);
 	DeleteObject(hdcMem);
 }
+void ResizeRedPart(void) {
+	midX = (left + right) * zoomRate;
+	midY = (top + bottom)  * zoomRate;
+	//红色部分在左上角
+	redRect.left = left;
+	redRect.top = top;
+	redRect.right = midX;
+	redRect.bottom = midY;
+}
+void ResizeBluePart(void) {
+	midX = (left + right) * zoomRate;
+	midY = (top + bottom)  * zoomRate;
+	//蓝色部分在右上角
+	blueRect.left = right - midX;
+	blueRect.top = top;
+	blueRect.right = right;
+	blueRect.bottom = midY;
+}
+void ResizeYellowPart(void) {
+	midX = (left + right) * zoomRate;
+	midY = (top + bottom)  * zoomRate;
+	//黄色部分在左下角
+	yellowRect.left = left;
+	yellowRect.top = bottom - midY;
+	yellowRect.right = midX;
+	yellowRect.bottom = bottom;
+}
+void ResizeGreenPart(void) {
+	midX = (left + right) * zoomRate;
+	midY = (top + bottom)  * zoomRate;
+	//绿色部分在右下角
+	greenRect.left = right - midX;
+	greenRect.top = bottom - midY;
+	greenRect.right = right;
+	greenRect.bottom = bottom;
+}
 void Resize(void) {
-	short left, top, right, bottom, midX, midY;
 	GetClientRect(hwnd, &rect);
 
 	left = rect.left;
 	top = rect.top;
 	right = rect.right;
 	bottom = rect.bottom;
-	midX = (left + right) / 2;
-	midY = (top + bottom) / 2;
-	//红色部分在左上角
-	redRect.left = left;
-	redRect.top = top;
-	redRect.right = midX;
-	redRect.bottom = midY;
-	//蓝色部分在右上角
-	blueRect.left = midX;
-	blueRect.top = top;
-	blueRect.right = right;
-	blueRect.bottom = midY;
-	//黄色部分在左下角
-	yellowRect.left = left;
-	yellowRect.top = midY;
-	yellowRect.right = midX;
-	yellowRect.bottom = bottom;
-	//绿色部分在右下角
-	greenRect.left = midX;
-	greenRect.top = midY;
-	greenRect.right = right;
-	greenRect.bottom = bottom;
+
+	ResizeRedPart();
+	ResizeBluePart();
+	ResizeYellowPart();
+	ResizeGreenPart();
 }
 void KillAllTimer(void) {
 	KillTimer(hwnd, RED_TIMER_ID);
