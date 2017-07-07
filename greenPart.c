@@ -5,7 +5,6 @@
 #define RECTANGLECOLOR RGB(34,177,76)
 #define BACKGROUNDCOLOR RGB(145,234,171)
 #define ENEMYBRUSH RGB(0,0,0)
-#define MANHATTANDISTANCE(x1,y1,x2,y2) (abs((x1)-(x2))+abs((y1)-(y2)))
 
 #define N 3
 
@@ -37,7 +36,7 @@ void CreateGreenGame(void) {
 		do {
 			enemyPosition[i].x = rand() % width;
 			enemyPosition[i].y = rand() % height;
-		} while (MANHATTANDISTANCE(enemyPosition[i].x,enemyPosition[i].y,rectanglePosition.x,rectanglePosition.y) < rectangleSpeed*5);
+		} while (MANHATTANDISTANCE(enemyPosition[i].x,enemyPosition[i].y,rectanglePosition.x,rectanglePosition.y) < rectangleSpeed*20);
 		enemyDirection[i].x = rand() & 1 ? 1 : -1;
 		enemyDirection[i].y = rand() & 1 ? 1 : -1;
 	}
