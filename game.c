@@ -1,14 +1,23 @@
 #include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib, "WINMM.LIB")
 #include "game.h"
 #include "redPart.h"
 #include "bluePart.h"
 #include "yellowPart.h"
 #include "greenPart.h"
 
+<<<<<<< Updated upstream
 short left, top, right, bottom, midX, midY;
 float zoomRate;
 void CreateGame() {
+=======
+DWORD WINAPI PlayMySound(LPVOID pParam) {
+	PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME);
+}
+>>>>>>> Stashed changes
 
+void CreateGame() {
 	hdc = GetDC(hwnd);
 	dead = FALSE;
 	pause = TRUE;
@@ -18,6 +27,7 @@ void CreateGame() {
 	CreateBlueGame();
 	CreateYellowGame();
 	CreateGreenGame();
+	CreateThread(0, 0, PlayMySound, 0, 0, 0);
 	SetTimer(hwnd, PAINTER_TIMER_ID, 10, NULL);//用来保持帧率的Painter Timer
 }
 void OnTimer(TIMER_ID timerID) {
