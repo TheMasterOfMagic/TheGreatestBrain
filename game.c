@@ -7,15 +7,14 @@
 #include "yellowPart.h"
 #include "greenPart.h"
 
-<<<<<<< Updated upstream
+
 short left, top, right, bottom, midX, midY;
 float zoomRate;
-void CreateGame() {
-=======
+
 DWORD WINAPI PlayMySound(LPVOID pParam) {
 	PlaySound(TEXT("bgm.wav"), NULL, SND_FILENAME);
 }
->>>>>>> Stashed changes
+
 
 void CreateGame() {
 	hdc = GetDC(hwnd);
