@@ -10,7 +10,6 @@ LRESULT CALLBACK MainWndProc(HWND _hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		CreateGame();
 		break;
 	case WM_TIMER:
-		GamePaint();
 		OnTimer(wParam);
 		break;
 	case WM_KEYDOWN:
